@@ -1,7 +1,6 @@
 # Redeemable extension for ERC721
 
-This project demonstrates a basic use case for linking NFT to a physical objet that can be redeem
-Useful for scenarios such as redeemable physical object
+Enables people to make their NFTs redeemable. It can be used when you want your NFT to be redeemed for a physical object, a ticket to an event, etc. Anyone can easily verify if the NFT is redeemable or not, and also verify if the NFT was redeemed or not.
 
 ## Install
 
