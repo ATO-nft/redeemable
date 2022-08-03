@@ -1,13 +1,16 @@
-# Sample Hardhat Project
+# Redeemable extension for ERC721
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project demonstrates a basic use case for linking NFT to a physical objet that can be redeem
+Useful for scenarios such as redeemable physical object
 
-Try running some of the following tasks:
+## Install
 
 ```shell
-npx hardhat help
+npm i
+```
+
+## Test
+
+```shell
 npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
 ```
