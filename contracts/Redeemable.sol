@@ -4,7 +4,7 @@ pragma solidity ^0.8.15;
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 
 /// @title contract Redeemable
-/// @author Olivier Fernandez / Frédéric Le Coidic for Ato
+/// @author Olivier Fernandez / Frédéric Le Coidic for Āto
 /// @dev This is a contract used to add redeemable support to ERC721
 
 /**
