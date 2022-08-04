@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Redeemable.sol";
 
 /// @title Example ERC721 contract with Redeemable
-/// @author Olivier Fernandez / Frédéric Le Coidic for Ato
+/// @author Olivier Fernandez / Frédéric Le Coidic for Āto
 /// @dev This is a contract used to add redeemable support to ERC721
 
 /**
