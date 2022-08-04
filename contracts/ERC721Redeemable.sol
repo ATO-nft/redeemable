@@ -23,18 +23,18 @@ contract ERC721Redeemable is ERC721, Redeemable, Ownable {
 	 *
 	 * - the NFT owner must be the msg sender.
 	 */
-   	constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {
+	constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {
 		_safeMint(msg.sender, 1);
 	}
 
-	function isRedeemable(uint256 tokenId) public view virtual override returns (bool) {
-		require(_exists(tokenId), "ERC721Redeemable: Redeem query for nonexistent token");
+	function isRedeemable(uint256 tokenId) public view override returns (bool) {
+		require(_exists(tokenId), "Redeem query for nonexistent token");
 		return super.isRedeemable(tokenId);
 	}
 
-	function redeem(uint256 tokenId) public virtual override {
-		require(_exists(tokenId), "ERC721Redeemable: Redeem query for nonexistent token");
-		require(ownerOf(tokenId) == msg.sender, "ERC721Redeemable: You are not the owner of this token");
+	function redeem(uint256 tokenId) public override {
+		require(_exists(tokenId), "Redeem query for nonexistent token");
+		require(ownerOf(tokenId) == msg.sender, "You are not the owner of this token");
 		super.redeem(tokenId);
 	}
 
