@@ -29,16 +29,61 @@ The delivery of physical objects can be incentivized but not enforced on-chain, 
 
 _The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119._
 
-_The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (go-ethereum, parity, cpp-ethereum, ethereumj, ethereumjs, and [others](https://github.com/ethereum/wiki/wiki/Clients))._
+**ERC-721 compliant contracts MAY implement this ERC for reedemable to provide a standard method of receiving reedemable information**
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.10;
+import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
+
+/**
+ * @dev Implementation of redeemable for 721s
+ *
+ */
+
+interface IRedeemable is ERC165 {
+	/*
+	 * ERC165 bytes to add to interface array - set in parent contract implementing this standard
+	 *
+	 * bytes4 private constant _INTERFACE_ID_ERC721REDEEM = 0x2f8ca953;
+	 * _registerInterface(_INTERFACE_ID_ERC721REDEEM);
+	 */
+	function isRedeemable(uint256) external view returns (bool);
+	function redeem(uint256) external;
+}
+```
+
+### Examples
+
+**Deploying an ERC-721 with reedemable**
+```   
+constructor (string memory name, string memory symbol)  public {
+	_name = name;
+	_symbol = symbol;
+	// register the supported interfaces to conform to ERC721 via ERC165
+	// Reedemable interface 
+	_registerInterface(_INTERFACE_ID_ERC721REDEEM);
+}
+```
+**Checking if the NFT being purchased/sold on your marketplace implemented reedemable**
+```  
+function checkReedemable(address _token) internal  returns(bool){
+	bool success = address(_token).call(abi.encodeWithSignature("supportsInterface()"));  (a modifier)
+	return success;
+}
+```
+
 
 ## Rationale
 
 _The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages._
 
+### Emitting event for payment
+Choosing to emit an event for redeem (ajout explication)
+
 - `redeem`
 - `isRedeemable`
-- Date d'expiration (option)
-- Once (option)
+- Date d'expiration (option) (a supprimer)
+- Once (option) (a supprimer)
 
 ## Backwards Compatibility
 

@@ -19,7 +19,7 @@ contract Redeemable is ERC165 {
 	mapping(uint256 => bool) private _redeemable;
 
 	//The supportsInterface method MUST return true when called with 0x2f8ca953.
-	bytes4 private constant _INTERFACE_ID_REDEEM = 0x2f8ca953;
+	bytes4 private constant _INTERFACE_ID_ERC721REDEEM = 0x2f8ca953;
 
 	event Redeem(address indexed from, uint256 indexed tokenId);
 
@@ -51,6 +51,6 @@ contract Redeemable is ERC165 {
 
 	/// @inheritdoc	ERC165
 	function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-		return interfaceId == _INTERFACE_ID_REDEEM || super.supportsInterface(interfaceId);
+		return interfaceId == _INTERFACE_ID_ERC721REDEEM || super.supportsInterface(interfaceId);
 	}
 }
