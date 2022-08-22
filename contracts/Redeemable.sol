@@ -33,8 +33,8 @@ contract Redeemable is ERC165 {
 		return !_redeemable[tokenId];
 	}
 
-	/// @notice redeeem a token
-	/// @param tokenId id of token to redeeem
+	/// @notice redeem a token
+	/// @param tokenId id of token to redeem
 	/// @dev dont forget to add a require to lock to tokenId owner
 	function redeem(uint256 tokenId) public virtual {
 		require(isRedeemable(tokenId), "Token already redeem");
@@ -42,9 +42,9 @@ contract Redeemable is ERC165 {
 		emit Redeem(msg.sender, tokenId);
 	}
 
-	/// @notice set redeeemable status, true for redeemable
-	/// @param tokenId id of token to redeeem
-	/// @param status new redeeem status
+	/// @notice set redeemable status, true for redeemable
+	/// @param tokenId id of token to redeem
+	/// @param status new redeem status
 	function _setRedeem(uint256 tokenId, bool status) internal virtual {
 		_redeemable[tokenId] = !status;
 	}
