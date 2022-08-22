@@ -79,7 +79,7 @@ When the NFT contract is deployed, the `isRedeemable()` function returns `true` 
 
 By default, the `redeem()` function visibility is public, so anyone can trigger it. It is RECOMMENDED to add a `require` to restrict the access:
 
-```
+```solidity
 require(ownerOf(tokenId) == msg.sender, "ERC721Redeemable: You are not the owner of this token");
 ```
 
@@ -89,7 +89,7 @@ After the `redeem()` function is triggered, `isRedeemable()` function returns `f
 
 When the `redeem()` function is triggered, the following event is emitted:
 
-```
+```solidity
 event Redeem(address indexed from, uint256 indexed tokenId);
 ```
 
@@ -101,9 +101,7 @@ This standard is compatible with current ERC-721 standard.
 
 **Deploying an ERC-721 with redeemable**
 
-Implementers of this standard MUST have all of the following functions:
-
-```
+```solidity
 contract ERC721Redeemable is ERC721, Redeemable {
 	/**
 	 * @dev See {Redeemable-redeem}.
