@@ -31,9 +31,15 @@ Enabling everyone to unify on a single redeemable NFT standard will benefit the 
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
 
-**ERC-721 compliant contracts MAY implement this ERC to provide a standard method of receiving information on reedemability.**
+**ERC-721 compliant contracts MAY implement this ERC to provide a standard method of receiving information on redeemability.**
 
-_The Redeemable NFT Extension allows anyone to verify this by triggering the `isRedeemable` function of a given NFT._
+The NFT issuer MUST decide who is allowed to redeem the NFT, and restrict access to the `redeem()` function accordingly.
+
+Anyone MAY access the `isRedeemable()` function to check the redeemability status: it returns `true` when the NFT redeemable, and `false` when already redeemed.
+
+Third-party services that support this standard MAY use the `Redeem` event to listen to changes on the redeemable status of the NFT.
+
+Implementers of this standard MUST have all of the following functions:
 
 ```solidity
 // SPDX-License-Identifier: GPL-3.0
@@ -53,11 +59,6 @@ interface IRedeemable is ERC165 {
 	 * bytes4 private constant _INTERFACE_ID_ERC721REDEEM = 0x2f8ca953;
 	 */
 
-	/// @dev This event emits when a token is redeemed.
-	/// So that the third-party platforms such as NFT market could
-	/// timely update the redeemable status of the NFT.
-	event Redeem(address indexed from, uint256 indexed tokenId);
-
 	/// @notice Returns the redeem status of a token
 	/// @param tokenId Identifier of the token.
 	function isRedeemable(uint256 _tokenId) external view returns (bool);
@@ -68,20 +69,29 @@ interface IRedeemable is ERC165 {
 }
 ```
 
-The Redeem event is emitted when redeem.
+The `Redeem` event is emitted when redeem.
+
+The `supportsInterface` method MUST return `true` when called with `0x2f8ca953`.
 
 ## Rationale
 
-_The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages._
+When the NFT contract is deployed, the `isRedeemable()` function returns `true` by default.
 
-// ...
+By default, the `redeem()` function visibility is public, so anyone can trigger it. It is RECOMMENDED to add a `require` to restrict the access:
 
-### Emitting event for payment
+```
+require(ownerOf(tokenId) == msg.sender, "ERC721Redeemable: You are not the owner of this token");
+```
 
-Choosing to emit an event for redeem (ajout explication)
+After the `redeem()` function is triggered, `isRedeemable()` function returns `false`.
 
-- `redeem`
-- `isRedeemable`
+### `Redeem` event
+
+When the `redeem()` function is triggered, the following event is emitted:
+
+```
+event Redeem(address indexed from, uint256 indexed tokenId);
+```
 
 ## Backwards Compatibility
 
@@ -89,45 +99,37 @@ This standard is compatible with current ERC-721 standard.
 
 ## Reference Implementation
 
-**Deploying an ERC-721 with reedemable**
+**Deploying an ERC-721 with redeemable**
 
 Implementers of this standard MUST have all of the following functions:
 
 ```
 contract ERC721Redeemable is ERC721, Redeemable {
-    /**
-     * @dev See {Redeemable-redeem}.
-     *
-     * Requirements:
-     *
-     * - the NFT owner must be the msg sender.
-     */
-   	constructor(string memory name, string memory symbol) ERC721(name, symbol) {
-    }
+	/**
+	 * @dev See {Redeemable-redeem}.
+	 *
+	 * Requirements:
+	 *
+	 * - the NFT owner must be the msg sender.
+	 */
 
-    function isRedeemable(uint256 tokenId) public view virtual override returns (bool) {
-		require(_exists(tokenId), "ERC721Redeemable: Redeem query for nonexistent token");
-        return super.isRedeemable(tokenId);
-    }
+	constructor(string memory name, string memory symbol) ERC721(name, symbol) {
+	}
 
-    function redeem(uint256 tokenId) public virtual override {
+	function isRedeemable(uint256 tokenId) public view virtual override returns (bool) {
 		require(_exists(tokenId), "ERC721Redeemable: Redeem query for nonexistent token");
-        require(ownerOf(tokenId) == msg.sender, "ERC721Redeemable: You are not the owner of this token");
-        super.redeem(tokenId);
-    }
+		return super.isRedeemable(tokenId);
+	}
+
+	function redeem(uint256 tokenId) public virtual override {
+		require(_exists(tokenId), "ERC721Redeemable: Redeem query for nonexistent token");
+		require(ownerOf(tokenId) == msg.sender, "ERC721Redeemable: You are not the owner of this token");
+		super.redeem(tokenId);
+	}
 
 	function supportsInterface(bytes4 interfaceId) public view override(ERC721, Redeemable) returns (bool) {
 		return super.supportsInterface(interfaceId);
 	}
-}
-```
-
-**Checking if the NFT being purchased/sold on your marketplace implemented reedemable**
-
-```
-function checkReedemable(address _token) internal  returns(bool){
-	bool success = address(_token).call(abi.encodeWithSignature("supportsInterface()"));  (a modifier)
-	return success;
 }
 ```
 
