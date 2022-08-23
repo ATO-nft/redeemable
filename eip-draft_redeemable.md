@@ -33,18 +33,15 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 
 **ERC-721 compliant contracts MAY implement this ERC to provide a standard method of receiving information on redeemability.**
 
-The NFT issuer MUST decide who is allowed to redeem the NFT, and restrict access to the `redeem()` function accordingly.
+The NFT issuer **MUST** decide who is allowed to redeem the NFT, and restrict access to the `redeem()` function accordingly.
 
-Anyone MAY access the `isRedeemable()` function to check the redeemability status: it returns `true` when the NFT redeemable, and `false` when already redeemed.
+Anyone **MAY** access the `isRedeemable()` function to check the redeemability status: it returns `true` when the NFT redeemable, and `false` when already redeemed.
 
-Third-party services that support this standard MAY use the `Redeem` event to listen to changes on the redeemable status of the NFT.
+Third-party services that support this standard **MAY** use the `Redeem` event to listen to changes on the redeemable status of the NFT.
 
-Implementers of this standard MUST have all of the following functions:
+Implementers of this standard **MUST** have all of the following functions:
 
 ```solidity
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.10;
-
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 
 /**
@@ -71,13 +68,13 @@ interface IRedeemable is ERC165 {
 
 The `Redeem` event is emitted when redeem.
 
-The `supportsInterface` method MUST return `true` when called with `0x2f8ca953`.
+The `supportsInterface` method **MUST** return `true` when called with `0x2f8ca953`.
 
 ## Rationale
 
 When the NFT contract is deployed, the `isRedeemable()` function returns `true` by default.
 
-By default, the `redeem()` function visibility is public, so anyone can trigger it. It is RECOMMENDED to add a `require` to restrict the access:
+By default, the `redeem()` function visibility is public, so anyone can trigger it. It is **RECOMMENDED** to add a `require` to restrict the access:
 
 ```solidity
 require(ownerOf(tokenId) == msg.sender, "ERC721Redeemable: You are not the owner of this token");
