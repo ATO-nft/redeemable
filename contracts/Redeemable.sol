@@ -15,7 +15,8 @@ import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 contract Redeemable is ERC165 {
 
 	// mapping of tokenId redeemable
-	/// @dev  status is inverted (false = redeemable, true = already redeem) in storage for gas optimisation
+	/// @dev status is inverted in storage (false = redeemable, true = already redeem) for gas optimisation
+	/// @dev by default the status is false (redeemable)
 	mapping(uint256 => bool) private _redeemable;
 
 	//The supportsInterface method MUST return true when called with 0x2f8ca953.
