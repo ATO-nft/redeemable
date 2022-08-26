@@ -17,7 +17,7 @@ A standardized way to link a physical object to an NFT.
 
 ## Abstract
 
-The Redeemable NFT Extension adds a `redeem` function to the ERC-721. It can be implemented when an NFT issuer wants his/her NFT to be redeemed for a physical object. Only the current NFT holder trigger the `redeem` function.
+The Redeemable NFT Extension adds a `redeem` function to the ERC-721. It can be implemented when an NFT issuer wants his/her NFT to be redeemed for a physical object.
 
 ## Motivation
 
@@ -29,7 +29,7 @@ Enabling everyone to unify on a single redeemable NFT standard will benefit the 
 
 ## Specification
 
-The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
+_The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119._
 
 **ERC-721 compliant contracts MAY implement this ERC to provide a standard method of receiving information on redeemability.**
 
@@ -66,7 +66,7 @@ interface IRedeemable is ERC165 {
 }
 ```
 
-The `Redeem` event is emitted when redeem.
+The `Redeem` event is emitted when the `redeem()` function is called.
 
 The `supportsInterface` method **MUST** return `true` when called with `0x2f8ca953`.
 
@@ -96,17 +96,10 @@ This standard is compatible with current ERC-721 standard.
 
 ## Reference Implementation
 
-**Deploying an ERC-721 with redeemable**
+Here's an example of an ERC-721 that includes the Redeemable extension:
 
 ```solidity
 contract ERC721Redeemable is ERC721, Redeemable {
-	/**
-	 * @dev See {Redeemable-redeem}.
-	 *
-	 * Requirements:
-	 *
-	 * - the NFT owner must be the msg sender.
-	 */
 
 	constructor(string memory name, string memory symbol) ERC721(name, symbol) {
 	}
