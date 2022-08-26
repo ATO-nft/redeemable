@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.15;
+pragma solidity 0.8.15;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-import "./Redeemable.sol";
+import "../Redeemable.sol";
 
 /// @title Example ERC721 contract with Redeemable
-/// @author Olivier Fernandez / Frédéric Le Coidic for Āto
+/// @author Olivier Fernandez and Julien Béranger for Āto
 /// @dev This is a contract used to add redeemable support to ERC721
 
 /**

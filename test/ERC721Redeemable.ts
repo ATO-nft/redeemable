@@ -2,7 +2,7 @@ import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("ERC721Redeemable", function () {
+describe("=== ERC721Redeemable ===", function () {
 	async function deployRedeemableERC721() {
 
 		// Contracts are deployed using the first signer/account by default

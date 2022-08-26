@@ -2,16 +2,20 @@ import { time, loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("=== ERC721RedeemOptions ===", function () {
+describe("=== ERC721RedeemURIOptions ===", function () {
 	async function deployRedeemableOptionsERC721() {
 
 		// Contracts are deployed using the first signer/account by default
 		const [owner, otherAccount] = await ethers.getSigners();
+		const name = "Black Thistle";
+		const symbol = "THISTLE";
+		const uri = "https://ipfs.io/ipfs/redeemableURI/metadata.json";
+		const uriRedeemed = "https://ipfs.io/ipfs/redeemedURI/metadata.json";
+	
+		const Contract = await ethers.getContractFactory("ERC721RedeemURIOptions");
+		const contract = await Contract.deploy(name, symbol, uri, uriRedeemed);
 
-		const Contract = await ethers.getContractFactory("ERC721RedeemOptions");
-		const contract = await Contract.deploy("ERC721RedeemOptions", "ERC721RO");
-
-		return { contract, owner, otherAccount };
+		return { contract, owner, otherAccount, uri, uriRedeemed };
 	}
 
 	describe("Deployment", function () {
@@ -42,7 +46,7 @@ describe("=== ERC721RedeemOptions ===", function () {
 			expect(contract.redeem(2)).to.be.reverted;
 		});
 		it("Reverts Redeem for invalid owner", async function () {
-			const { contract, owner, otherAccount } = await loadFixture(deployRedeemableOptionsERC721);
+			const { contract, otherAccount } = await loadFixture(deployRedeemableOptionsERC721);
 			expect(contract.connect(otherAccount).redeem(1)).to.be.reverted;
 		});
 		it("Checks Redeem", async function () {
@@ -55,6 +59,18 @@ describe("=== ERC721RedeemOptions ===", function () {
 			const { contract, owner } = await loadFixture(deployRedeemableOptionsERC721);
 			expect(await contract.redeem(1)).to.emit(contract, "redeem").withArgs(owner.address, 1);
 			expect(await contract.isRedeemable(1)).to.be.false;
+		});
+	});
+
+	describe("URI(s)", function () {
+		it("Check uri(s)", async function () {
+		  const { contract, uri, uriRedeemed } = await loadFixture(deployRedeemableOptionsERC721);
+		  expect(await contract.isRedeemable(1)).to.be.true;
+		  expect(await contract.tokenURI(1)).to.equal(uri);
+		  // redeem
+		  await contract.redeem(1);
+		  expect(await contract.isRedeemable(1)).to.be.false;
+		  expect(await contract.tokenURI(1)).to.equal(uriRedeemed);
 		});
 	});
 

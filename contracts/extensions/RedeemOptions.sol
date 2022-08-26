@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.15;
 
-import "./Redeemable.sol";
+import "../Redeemable.sol";
 
 /// @title contract Redeemable
-/// @author Olivier Fernandez / Frédéric Le Coidic for Āto
+/// @author Olivier Fernandez and Julien Béranger for Āto
 /// @dev This is a contract used to add options to redeemable
 
 contract RedeemOptions is Redeemable {

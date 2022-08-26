@@ -4,12 +4,12 @@
 pragma solidity ^0.8.15;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./Redeemable.sol";
+import "../Redeemable.sol";
 
 /**
  * @dev ERC721 token with storage based token URI management for redeemable contracts.
  */
-abstract contract ERC721RedeemableURIStorage is ERC721, Redeemable {
+abstract contract RedeemableURIStorage is ERC721, Redeemable {
 	bool constant REDEEMABLE = true;
 	bool constant NOT_REDEEMABLE = false;
 
@@ -51,7 +51,7 @@ abstract contract ERC721RedeemableURIStorage is ERC721, Redeemable {
 	 * - `tokenId` must exist.
 	 */
 	function _setTokenURI(uint256 tokenId, string memory _tokenURIRedeemable, string memory _tokenURINotRedeemable) internal virtual {
-		require(_exists(tokenId), "ERC721RedeemableURIStorage: URI set of nonexistent token");
+		require(_exists(tokenId), "RedeemableURIStorage: URI set of nonexistent token");
 		_tokenURIs[tokenId][REDEEMABLE] = _tokenURIRedeemable;
 		_tokenURIs[tokenId][NOT_REDEEMABLE] = _tokenURINotRedeemable;
 	}
