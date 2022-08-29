@@ -7,7 +7,7 @@ discussions-to: <URL>
 status: Draft
 type: Standards Track
 category: ERC
-created: 2022-08-03
+created: 2022-08-30
 requires: [165](https://eips.ethereum.org/EIPS/eip-165), [721](https://eips.ethereum.org/EIPS/eip-721)
 ---
 
