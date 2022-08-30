@@ -3,7 +3,7 @@ eip: <to be assigned>
 title: Redeemable
 description: Redeemable NFT Extension
 author: Olivier Fernandez (@fernandezOli), Frédéric Le Coidic (@FredLC29), Julien Béranger (@julienbrg)
-discussions-to: <URL>
+discussions-to: [https://ethereum-magicians.org/t/eip-redeemable-nft-extension/10589](https://ethereum-magicians.org/t/eip-redeemable-nft-extension/10589)
 status: Draft
 type: Standards Track
 category: ERC
