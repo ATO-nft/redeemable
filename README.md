@@ -1,12 +1,13 @@
-# Redeemable extension for ERC721
+# Redeemable NFTs
 
-A standardized way to link a physical object to an NFT.
+The EIP is a Redeemable NFT extension which adds a `redeem` function to EIP-721. It can be implemented when an NFT issuer wants his/her NFT to be redeemed for a physical object.
 
-The Redeemable NFT Extension adds a `redeem` function to the ERC-721. It can be implemented when an NFT issuer wants his/her NFT to be redeemed for a physical object.
+- PR: [https://github.com/ethereum/EIPs/pull/5560](https://github.com/ethereum/EIPs/pull/5560)
+- Discussion: [https://ethereum-magicians.org/t/eip-5560-redeemable-nfts/10589](https://ethereum-magicians.org/t/eip-5560-redeemable-nfts/10589)
 
 ## Motivation
 
-As of now, one can't link a physical object to an NFT. This standard allows NFTs that support ERC-721 interfaces to have a standardized way of signalling information on reedemability and verify if the NFT was redeemed or not. More and more NFT issuers such as artists, fine art galeries, auction houses, brands and others want to offer a physical object to the holder of a given NFT. Enabling everyone to unify on a single redeemable NFT standard will benefit the entire Ethereum ecosystem.
+An increasing amount of NFT issuers such as artists, fine art galeries, auction houses, brands and others want to offer a physical object to the holder of a given NFT. This standard allows EIP-721 NFTs to signal reedemability.
 
 ## Install
 
